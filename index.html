@@ -8,6 +8,9 @@
 </head>
 <body>
 
+    <!-- Container for the single program from backend -->
+    <div id="programs"></div>
+
     <!-- Navigation -->
     <nav>
         <div class="logo">EquaNova</div>
@@ -36,7 +39,6 @@
             built exclusively for students under 25.
         </p>
 
-        <!-- Hero buttons (floating) -->
         <div class="hero-buttons">
             <a href="#explore" class="btn primary-btn">Get Started</a>
             <a href="#features" class="btn secondary-btn">Discover More</a>
@@ -88,38 +90,51 @@
                     We handle everything — from <strong>transportation</strong> to <strong>accommodation</strong> —
                     and even provide a <strong>personal bodyguard</strong>.
                 </p>
-                <p>
-                    Simply let us know which event you’ll be attending, and we will arrange all services mentioned above
-                    for an <strong>additional fee</strong>.
-                </p>
             </div>
 
             <div class="feature-card">
                 <h3>Book Tickets</h3>
                 <p>
-                    In this section, have an opportunity for amazing stuff!
-                    Manage all payments and bookings with our simple yet precise and refined platform.
-                </p>
-                <p>
-                    Feel free using amenities out there and make your dreams reality!
+                    Manage all payments and bookings with our simple yet precise platform.
                 </p>
             </div>
 
             <div class="feature-card">
                 <h3>Culture & Community</h3>
                 <p>
-                    Explore the EquaNova social community. This is a once-in-a-lifetime offer
-                    for every user to join, as bookings are limited to 999 members.
-                </p>
-                <p>
-                    Have fun with your peer group and colleagues by enjoying games, webinars, debates, and club activities.
-                </p>
-                <p>
-                    Visit our club to get more information and stay updated. We are excited to meet our young contributors!
+                    Explore the EquaNova social community. Bookings are limited to 999 members.
                 </p>
             </div>
         </div>
     </section>
+
+    <!-- JavaScript to display single program -->
+    <script>
+      const program = {
+        "name": "Google STEP Internship",
+        "provider": "Google",
+        "level": "Undergraduate",
+        "country": "USA",
+        "field": "Computer Science",
+        "website": "https://careers.google.com",
+        "verified": true
+      };
+
+      const container = document.getElementById("programs");
+
+      const card = document.createElement("div");
+      card.className = "program-card";
+      card.innerHTML = `
+        <h3>${program.name}</h3>
+        <p><strong>Provider:</strong> ${program.provider}</p>
+        <p><strong>Level:</strong> ${program.level}</p>
+        <p><strong>Field:</strong> ${program.field}</p>
+        <p><strong>Country:</strong> ${program.country}</p>
+        <p><strong>Website:</strong> <a href="${program.website}" target="_blank">${program.website}</a></p>
+        <p><strong>Verified:</strong> ${program.verified ? "✅ Yes" : "❌ No"}</p>
+      `;
+      container.appendChild(card);
+    </script>
 
 </body>
 </html>
