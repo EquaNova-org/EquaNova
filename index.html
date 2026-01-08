@@ -110,31 +110,48 @@
 
     <!-- JavaScript to display single program -->
     <script>
-      const program = {
-        "name": "Google STEP Internship",
-        "provider": "Google",
-        "level": "Undergraduate",
-        "country": "USA",
-        "field": "Computer Science",
-        "website": "https://careers.google.com",
-        "verified": true
-      };
+  const API_URL = "http://localhost:5000/api/programs";
+
+  async function loadProgram() {
+    try {
+      const response = await fetch(API_URL);
+      if (!response.ok) {
+        throw new Error("Failed to fetch program");
+      }
+
+      const program = await response.json();
 
       const container = document.getElementById("programs");
 
       const card = document.createElement("div");
       card.className = "program-card";
+
       card.innerHTML = `
         <h3>${program.name}</h3>
         <p><strong>Provider:</strong> ${program.provider}</p>
         <p><strong>Level:</strong> ${program.level}</p>
         <p><strong>Field:</strong> ${program.field}</p>
         <p><strong>Country:</strong> ${program.country}</p>
-        <p><strong>Website:</strong> <a href="${program.website}" target="_blank">${program.website}</a></p>
+        <p>
+          <strong>Website:</strong>
+          <a href="${program.website}" target="_blank">${program.website}</a>
+        </p>
         <p><strong>Verified:</strong> ${program.verified ? "✅ Yes" : "❌ No"}</p>
       `;
+
       container.appendChild(card);
-    </script>
+
+    } catch (error) {
+      console.error(error);
+      document.getElementById("programs").innerHTML =
+        "<p>Failed to load program.</p>";
+    }
+  }
+
+  loadProgram();
+</script>
+
 
 </body>
 </html>
+
