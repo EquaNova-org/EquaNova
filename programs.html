@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0"/>
+  <title>Programs | EquaNova</title>
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
+
+  <!-- Navigation (same as index) -->
+  <nav>
+    <div class="logo">EquaNova</div>
+
+    <ul class="nav-links">
+      <li><a href="index.html">Home</a></li>
+      <li><a href="programs.html">Programs</a></li>
+      <li><a href="#features">Features</a></li>
+    </ul>
+
+    <div class="auth-buttons">
+      <a href="login.html" class="btn primary-btn">Log In</a>
+      <a href="signup.html" class="btn secondary-btn">Sign Up</a>
+    </div>
+  </nav>
+
+  <!-- Programs Section -->
+  <section class="programs-section">
+    <h2>Available Programs</h2>
+    <p>Verified international programs curated for students.</p>
+
+    <div id="programs"></div>
+  </section>
+
+  <!-- JS: fetch program from backend -->
+  <script>
+    const API_URL = "http://localhost:5000/api/programs";
+
+    async function loadProgram() {
+      try {
+        const response = await fetch(API_URL);
+        if (!response.ok) {
+          throw new Error("Failed to fetch program");
+        }
+
+        const program = await response.json();
+        const container = document.getElementById("programs");
+
+        const card = document.createElement("div");
+        card.className = "program-card";
+
+        card.innerHTML = `
+          <h3>${program.name}</h3>
+          <p><strong>Provider:</strong> ${program.provider}</p>
+          <p><strong>Level:</strong> ${program.level}</p>
+          <p><strong>Field:</strong> ${program.field}</p>
+          <p><strong>Country:</strong> ${program.country}</p>
+          <p>
+            <strong>Website:</strong>
+            <a href="${program.website}" target="_blank">${program.website}</a>
+          </p>
+          <p><strong>Verified:</strong> ${program.verified ? "✅ Yes" : "❌ No"}</p>
+        `;
+
+        container.appendChild(card);
+
+      } catch (err) {
+        console.error(err);
+        document.getElementById("programs").innerHTML =
+          "<p>Failed to load programs.</p>";
+      }
+    }
+
+    loadProgram();
+  </script>
+
+</body>
+</html>
