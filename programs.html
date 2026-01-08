@@ -32,37 +32,40 @@
     <div id="programs"></div>
   </section>
 
-  <!-- JS: fetch program from backend -->
+  <!-- JS: fetch programs from backend -->
   <script>
     const API_URL = "http://localhost:5000/api/programs";
 
-    async function loadProgram() {
+    async function loadPrograms() {
       try {
         const response = await fetch(API_URL);
         if (!response.ok) {
-          throw new Error("Failed to fetch program");
+          throw new Error("Failed to fetch programs");
         }
 
-        const program = await response.json();
+        const programs = await response.json(); // array of programs
         const container = document.getElementById("programs");
+        container.innerHTML = ""; // clear any existing content
 
-        const card = document.createElement("div");
-        card.className = "program-card";
+        programs.forEach(program => {
+          const card = document.createElement("div");
+          card.className = "program-card";
 
-        card.innerHTML = `
-          <h3>${program.name}</h3>
-          <p><strong>Provider:</strong> ${program.provider}</p>
-          <p><strong>Level:</strong> ${program.level}</p>
-          <p><strong>Field:</strong> ${program.field}</p>
-          <p><strong>Country:</strong> ${program.country}</p>
-          <p>
-            <strong>Website:</strong>
-            <a href="${program.website}" target="_blank">${program.website}</a>
-          </p>
-          <p><strong>Verified:</strong> ${program.verified ? "✅ Yes" : "❌ No"}</p>
-        `;
+          card.innerHTML = `
+            <h3>${program.name}</h3>
+            <p><strong>Provider:</strong> ${program.provider}</p>
+            <p><strong>Level:</strong> ${program.level}</p>
+            <p><strong>Field:</strong> ${program.field}</p>
+            <p><strong>Country:</strong> ${program.country}</p>
+            <p>
+              <strong>Website:</strong>
+              <a href="${program.website}" target="_blank">${program.website}</a>
+            </p>
+            <p><strong>Verified:</strong> ${program.verified ? "✅ Yes" : "❌ No"}</p>
+          `;
 
-        container.appendChild(card);
+          container.appendChild(card);
+        });
 
       } catch (err) {
         console.error(err);
@@ -71,7 +74,7 @@
       }
     }
 
-    loadProgram();
+    loadPrograms();
   </script>
 
 </body>
